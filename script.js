@@ -12,9 +12,6 @@ function start() {
 
 start();
 
-console.log(money);
-console.log(time);
-
 let appData = {
   budget: money,
   timeData: time,
@@ -40,56 +37,21 @@ function chooseExpenses() {
   }
 }
 
-chooseExpenses();
-
-/*
-let i = 0;
-
-while (i < 2) {
-  let a = prompt("Введите обязательную статью расходов в этом месяце", ""),
-      b = prompt("Во сколько обойдется?", "");
-  appData.expenses[a] = b;
-  console.log("done");
-  i++;
+function detectDayBudget() {
+  appData.moneyPerDay = appData.budget / 30;
+  alert("бюджет на день: " + appData.moneyPerDay.toFixed());
 }
 
-do {
-  let a = prompt("Введите обязательную статью расходов в этом месяце", ""),
-      b = prompt("Во сколько обойдется?", "");
-  appData.expenses[a] = b;
-  console.log("done");
-  i++;
-} while (i < 2);
-*/
-console.log(appData.expenses);
-
-
-appData.moneyPerDay = (appData.budget / 30).toFixed();
-alert("бюджет на день: " + appData.moneyPerDay);
-
-console.log(appData.moneyPerDay);
-/*
-switch (appData.moneyPerDay) {
-  case appData.moneyPerDay < 100: 
+function detectLevel() {
+  if (appData.moneyPerDay < 100) {
     console.log("Минимальный доход");
-    break;
-  case appData.moneyPerDay > 100: 
+  } else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
     console.log("Средний доход");
-    break;    
-  default:
-    console.log('something wrong');
-    break;
-}
-*/
-
-if (appData.moneyPerDay < 100) {
-  console.log("Минимальный доход");
-} else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
-  console.log("Средний доход");
-} else if (appData.moneyPerDay > 2000) {
-  console.log("Высокий доход");
-} else {
-  console.log("something goes wrong");
+  } else if (appData.moneyPerDay >= 2000) {
+    console.log("Высокий доход");
+  } else {
+    console.log("something goes wrong");
+  }
 }
 
 function checkSavings() {
@@ -102,4 +64,25 @@ function checkSavings() {
   }
 }
 
-checkSavings();
+function chooseOptExpenses() {
+  for (let i = 0; i < 3; i++) {
+    let a = prompt("Статья необязательных расходов?", '');
+    appData.optionalExpenses[i + 1] = a;
+  }
+}
+
+detectDayBudget();
+detectLevel();
+/*
+switch (appData.moneyPerDay) {
+  case appData.moneyPerDay < 100: //не работает, потому что условие должно быть (true), а не переменная
+    console.log("Минимальный доход");
+    break;
+  case appData.moneyPerDay > 100: 
+    console.log("Средний доход");
+    break;    
+  default:
+    console.log('something wrong');
+    break;
+}
+*/
